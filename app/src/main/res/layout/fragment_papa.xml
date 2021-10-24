@@ -5,34 +5,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        layout_height=""
-        layout_width=""
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:fontFamily="@font/roboto_mono_bold"
-            android:text="AI CAMERA"
-            android:textSize="34sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:fontFamily="@font/roboto_mono_bold"
-            android:text="Camera for ML enthusiasts"
-            android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
 
         <ScrollView
             android:id="@+id/scroll_papa"
@@ -51,7 +25,288 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical" />
+                android:orientation="vertical">
+
+                <com.example.android.aicamera.views.MaskedCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/card_side_margin"
+                    android:layout_marginEnd="@dimen/card_side_margin"
+                    android:layout_marginBottom="@dimen/card_bottom_margin"
+                    app:cardCornerRadius="0dp"
+                    app:cardElevation="@dimen/card_elevation"
+                    app:cardPreventCornerOverlap="false"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearance.Sunflower.Card">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <Button
+                            android:id="@+id/object_detection_play"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:text="@string/play"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/object_detection_title" />
+
+                        <Button
+                            android:id="@+id/object_detection_info"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:text="@string/info"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/object_detection_play"
+                            app:layout_constraintTop_toBottomOf="@+id/object_detection_title" />
+
+                        <ImageView
+                            android:id="@+id/object_detection_image"
+                            android:layout_width="0dp"
+                            android:layout_height="230dp"
+                            android:scaleType="centerCrop"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/object_detection" />
+
+                        <TextView
+                            android:id="@+id/object_detection_title"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:fontFamily="@font/roboto_mono_bold"
+                            android:text="@string/object_detection"
+                            android:textAppearance="?attr/textAppearanceListItem"
+                            android:textSize="24sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/object_detection_image" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </com.example.android.aicamera.views.MaskedCardView>
+
+                <com.example.android.aicamera.views.MaskedCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/card_side_margin"
+                    android:layout_marginEnd="@dimen/card_side_margin"
+                    android:layout_marginBottom="@dimen/card_bottom_margin"
+                    app:cardCornerRadius="0dp"
+                    app:cardElevation="@dimen/card_elevation"
+                    app:cardPreventCornerOverlap="false"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearance.Sunflower.Card">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <Button
+                            android:id="@+id/image_labelling_play"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:text="@string/play"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/image_labelling_title" />
+
+                        <Button
+                            android:id="@+id/image_labelling_info"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:text="@string/info"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/image_labelling_play"
+                            app:layout_constraintTop_toBottomOf="@+id/image_labelling_title" />
+
+                        <ImageView
+                            android:id="@+id/image_labelling_image"
+                            android:layout_width="0dp"
+                            android:layout_height="230dp"
+                            android:scaleType="centerCrop"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/object_detection" />
+
+                        <TextView
+                            android:id="@+id/image_labelling_title"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:fontFamily="@font/roboto_mono_bold"
+                            android:text="Image Labelling"
+                            android:textAppearance="?attr/textAppearanceListItem"
+                            android:textSize="24sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/image_labelling_image" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </com.example.android.aicamera.views.MaskedCardView>
+
+                <com.example.android.aicamera.views.MaskedCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/card_side_margin"
+                    android:layout_marginEnd="@dimen/card_side_margin"
+                    android:layout_marginBottom="@dimen/card_bottom_margin"
+                    app:cardCornerRadius="0dp"
+                    app:cardElevation="@dimen/card_elevation"
+                    app:cardPreventCornerOverlap="false"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearance.Sunflower.Card">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <Button
+                            android:id="@+id/pose_estimation_play"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:text="@string/play"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/pose_estimation_title" />
+
+                        <Button
+                            android:id="@+id/pose_estimation_info"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:text="@string/info"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/pose_estimation_play"
+                            app:layout_constraintTop_toBottomOf="@+id/pose_estimation_title" />
+
+                        <ImageView
+                            android:id="@+id/pose_estimation_image"
+                            android:layout_width="0dp"
+                            android:layout_height="230dp"
+                            android:scaleType="centerCrop"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/object_detection" />
+
+                        <TextView
+                            android:id="@+id/pose_estimation_title"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:fontFamily="@font/roboto_mono_bold"
+                            android:text="Pose Estimation"
+                            android:textAppearance="?attr/textAppearanceListItem"
+                            android:textSize="24sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/pose_estimation_image" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </com.example.android.aicamera.views.MaskedCardView>
+
+                <com.example.android.aicamera.views.MaskedCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/card_side_margin"
+                    android:layout_marginEnd="@dimen/card_side_margin"
+                    android:layout_marginBottom="@dimen/card_bottom_margin"
+                    app:cardCornerRadius="0dp"
+                    app:cardElevation="@dimen/card_elevation"
+                    app:cardPreventCornerOverlap="false"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearance.Sunflower.Card">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <Button
+                            android:id="@+id/face_detection_play"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:text="@string/play"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/face_detection_title" />
+
+                        <Button
+                            android:id="@+id/face_detection_info"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:text="@string/info"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/face_detection_play"
+                            app:layout_constraintTop_toBottomOf="@+id/face_detection_title" />
+
+                        <ImageView
+                            android:id="@+id/face_detection_image"
+                            android:layout_width="0dp"
+                            android:layout_height="230dp"
+                            android:scaleType="centerCrop"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/object_detection" />
+
+                        <TextView
+                            android:id="@+id/face_detection_title"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:fontFamily="@font/roboto_mono_bold"
+                            android:text="Face Detection"
+                            android:textAppearance="?attr/textAppearanceListItem"
+                            android:textSize="24sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/face_detection_image" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </com.example.android.aicamera.views.MaskedCardView>
+            </LinearLayout>
         </ScrollView>
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/roboto_mono_bold"
+            android:text="Camera for ML enthusiasts"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/roboto_mono_bold"
+            android:text="AI CAMERA"
+            android:textSize="34sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
