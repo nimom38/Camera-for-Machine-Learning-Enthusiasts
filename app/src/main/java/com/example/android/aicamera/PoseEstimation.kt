@@ -5,18 +5,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
-import com.example.android.aicamera.databinding.FragmentPapaBinding
+import com.example.android.aicamera.databinding.FragmentPoseEstimationBinding
 
-class PapaFragment : Fragment() {
-
-    private lateinit var binding: FragmentPapaBinding
-
+class PoseEstimation : Fragment() {
+    private lateinit var binding: FragmentPoseEstimationBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentPapaBinding.inflate(layoutInflater, container, false)
+        binding = FragmentPoseEstimationBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 }

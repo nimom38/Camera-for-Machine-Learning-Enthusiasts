@@ -120,4 +120,8 @@ dependencies {
     androidTestImplementation "com.google.dagger:hilt-android-testing:$rootProject.hiltVersion"
     androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$rootProject.coroutinesVersion"
     testImplementation "junit:junit:$rootProject.junitVersion"
+
+    //
+    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'com.google.guava:guava:27.1-android'
 }

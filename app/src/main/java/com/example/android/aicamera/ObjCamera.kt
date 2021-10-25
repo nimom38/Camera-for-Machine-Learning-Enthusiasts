@@ -5,18 +5,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
-import com.example.android.aicamera.databinding.FragmentPapaBinding
+import com.example.android.aicamera.databinding.FragmentObjCameraBinding
 
-class PapaFragment : Fragment() {
+class ObjCamera : Fragment() {
 
-    private lateinit var binding: FragmentPapaBinding
+    private lateinit var binding: FragmentObjCameraBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentPapaBinding.inflate(layoutInflater, container, false)
+        binding = FragmentObjCameraBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 }

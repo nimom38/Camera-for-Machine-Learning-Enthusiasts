@@ -4,12 +4,25 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../../layout/custom_preview.xml" value="0.22135416666666666" />
+        <entry key="app/src/main/res/drawable/camera_flip.xml" value="0.12129629629629629" />
+        <entry key="app/src/main/res/drawable/flash_off.xml" value="0.12129629629629629" />
+        <entry key="app/src/main/res/drawable/ic_detail_back.xml" value="0.12685185185185185" />
+        <entry key="app/src/main/res/drawable/ic_detail_share.xml" value="0.12685185185185185" />
+        <entry key="app/src/main/res/drawable/ic_plus.xml" value="0.12685185185185185" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.178125" />
+        <entry key="app/src/main/res/layout/fragment_image_labelling.xml" value="0.18" />
+        <entry key="app/src/main/res/layout/fragment_info.xml" value="0.18" />
+        <entry key="app/src/main/res/layout/fragment_obj_camera.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_papa.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/fragment_pose_estimation.xml" value="0.19322916666666667" />
+        <entry key="app/src/main/res/menu/menu_obj_top.xml" value="0.22" />
+        <entry key="app/src/main/res/menu/menu_pe_top.xml" value="0.19322916666666667" />
+        <entry key="app/src/main/res/menu/menu_plant_detail.xml" value="0.1" />
+        <entry key="app/src/main/res/menu/menu_plant_list.xml" value="0.1" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
