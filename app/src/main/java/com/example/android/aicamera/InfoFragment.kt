@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.core.widget.NestedScrollView
 import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.example.android.aicamera.databinding.FragmentInfoBinding
 import com.google.android.material.snackbar.Snackbar
 
@@ -91,6 +92,10 @@ class InfoFragment : Fragment() {
                 Html.fromHtml(description, Html.FROM_HTML_MODE_COMPACT)
             } else {
                 Html.fromHtml(description)
+            }
+
+            fab.setOnClickListener{
+                findNavController().navigate(direction)
             }
 
             aicameraDetailName.text = title
