@@ -16,6 +16,7 @@ class ObjCamera : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentObjCameraBinding.inflate(layoutInflater, container, false)
+        setHasOptionsMenu(true)
         return binding.root
     }
 }

@@ -10,10 +10,11 @@
         <entry key="app/src/main/res/drawable/ic_detail_share.xml" value="0.12685185185185185" />
         <entry key="app/src/main/res/drawable/ic_plus.xml" value="0.12685185185185185" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.178125" />
+        <entry key="app/src/main/res/layout/fragment_face_detection.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/layout/fragment_image_labelling.xml" value="0.18" />
         <entry key="app/src/main/res/layout/fragment_info.xml" value="0.18" />
         <entry key="app/src/main/res/layout/fragment_obj_camera.xml" value="0.22" />
-        <entry key="app/src/main/res/layout/fragment_papa.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/fragment_papa.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_pose_estimation.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/menu/menu_obj_top.xml" value="0.22" />
         <entry key="app/src/main/res/menu/menu_pe_top.xml" value="0.19322916666666667" />

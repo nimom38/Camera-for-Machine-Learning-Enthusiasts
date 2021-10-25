@@ -14,6 +14,7 @@ class PoseEstimation : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentPoseEstimationBinding.inflate(layoutInflater, container, false)
+        setHasOptionsMenu(true)
         return binding.root
     }
 }

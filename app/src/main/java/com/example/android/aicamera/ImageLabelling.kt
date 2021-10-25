@@ -14,6 +14,7 @@ class ImageLabelling : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentImageLabellingBinding.inflate(layoutInflater, container, false)
+        setHasOptionsMenu(true)
         return binding.root
     }
 
