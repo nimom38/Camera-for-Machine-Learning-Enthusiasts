@@ -1,5 +1,6 @@
 package com.example.android.aicamera
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -17,6 +18,8 @@ class PapaFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+
         binding = FragmentPapaBinding.inflate(layoutInflater, container, false)
 
         binding.objectDetectionInfo.setOnClickListener {

@@ -2,10 +2,12 @@ package com.example.android.aicamera
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.OrientationEventListener
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
@@ -53,6 +55,26 @@ class ImageLabelling : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        val mOrientationListener: OrientationEventListener = object : OrientationEventListener(
+            safeContext
+        ) {
+            override fun onOrientationChanged(orientation: Int) {
+                if (orientation == 0) {
+                    activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+                }
+                else if(orientation == 180) {
+                    activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_REVERSE_PORTRAIT
+                }
+                else if (orientation == 90) {
+                    activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE
+                }
+                else if (orientation == 270) {
+                    activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+                }
+            }
+        }
+
         binding = FragmentImageLabellingBinding.inflate(layoutInflater, container, false)
         arr = arrayListOf(
             binding.tv1,
@@ -212,5 +234,10 @@ class ImageLabelling : Fragment() {
         Log.d("ImageLabelling", "executor shutdown")
 
         Log.d("ImageLabelling", "FragmentA destroyed")
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
     }
 }

@@ -2,6 +2,7 @@ package com.example.android.aicamera
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.pm.ActivityInfo
 import android.graphics.Bitmap
 import android.graphics.RectF
 import android.os.Bundle
@@ -46,6 +47,9 @@ import org.tensorflow.lite.support.image.ops.ResizeWithCropOrPadOp
 import org.tensorflow.lite.support.image.ops.Rot90Op
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
+import android.view.OrientationEventListener
+import androidx.camera.core.impl.utils.ContextUtil.getApplicationContext
+
 
 val MODEL: String = "object_labeler.tflite"
 
@@ -78,6 +82,30 @@ class ObjCamera : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        val mOrientationListener: OrientationEventListener = object : OrientationEventListener(
+            safeContext
+        ) {
+            override fun onOrientationChanged(orientation: Int) {
+                if (orientation == 0) {
+                    activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+                }
+                else if(orientation == 180) {
+                    activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_REVERSE_PORTRAIT
+                }
+                else if (orientation == 90) {
+                    activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE
+                }
+                else if (orientation == 270) {
+                    activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+                }
+            }
+        }
+
+        if (mOrientationListener.canDetectOrientation()) {
+            mOrientationListener.enable()
+        }
+
         Log.d("Baby", "oncreateview")
         binding = FragmentObjCameraBinding.inflate(layoutInflater, container, false)
         graphicOverlay = binding.graphicOverlay
@@ -241,4 +269,8 @@ class ObjCamera : Fragment() {
         Log.d("ObjCamera", "FragmentA destroyed")
     }
 
+    override fun onDetach() {
+        super.onDetach()
+        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+    }
 }

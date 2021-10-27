@@ -9,6 +9,8 @@
         <entry key="app/src/main/res/drawable/ic_detail_back.xml" value="0.12685185185185185" />
         <entry key="app/src/main/res/drawable/ic_detail_share.xml" value="0.12685185185185185" />
         <entry key="app/src/main/res/drawable/ic_plus.xml" value="0.12685185185185185" />
+        <entry key="app/src/main/res/layout-land/fragment_image_labelling.xml" value="0.21041666666666667" />
+        <entry key="app/src/main/res/layout-land/fragment_obj_camera.xml" value="0.21041666666666667" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.178125" />
         <entry key="app/src/main/res/layout/fragment_face_detection.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/layout/fragment_image_labelling.xml" value="0.18" />
