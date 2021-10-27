@@ -141,6 +141,7 @@ class ImageLabelling : Fragment() {
                 .addOnSuccessListener { labels ->
                     var idx = 0
                     for (label in labels) {
+                        if(idx == 10) break
                         val text = label.text
                         val confidence = label.confidence
                         val index = label.index

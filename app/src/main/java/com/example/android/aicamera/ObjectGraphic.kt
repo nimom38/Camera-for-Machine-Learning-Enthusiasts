@@ -1,35 +1,21 @@
-/*
- * Copyright 2020 Google LLC. All rights reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package com.example.android.aicamera
 
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.RectF
+import android.util.Log
+import com.example.android.aicamera.GraphicOverlay
+import com.google.mlkit.vision.objects.DetectedObject
 import java.util.Locale
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
-import kotlin.random.Random
 
 /** Draw the detected object info in preview.  */
 class ObjectGraphic constructor(
   overlay: GraphicOverlay,
-  private val detectedObject: ObjectDetectionHelper.ObjectPrediction
+  private val detectedObject: DetectedObject
 ) : GraphicOverlay.Graphic(overlay) {
 
   private val numColors = COLORS.size
@@ -56,29 +42,39 @@ class ObjectGraphic constructor(
   override fun draw(canvas: Canvas) {
     // Decide color based on object tracking ID
     val colorID =
-      if (detectedObject == null) 0
-      else Random.nextInt(1, NUM_COLORS-1)
-    var textWidth = 0
+      if (detectedObject.trackingId == null) 0
+      else abs(detectedObject.trackingId!! % NUM_COLORS)
+    var textWidth =
+      textPaints[colorID].measureText("Tracking ID: " + detectedObject.trackingId)
     val lineHeight = TEXT_SIZE + STROKE_WIDTH
-    var yLabelOffset: Float = 0f
+    var yLabelOffset = -lineHeight
 
     // Calculate width and height of label box
-    textWidth =
-      textPaints[colorID].measureText(detectedObject.label + " " + detectedObject.score.toString()).toInt()
-    yLabelOffset -= 2 * lineHeight
+    for (label in detectedObject.labels) {
+      textWidth =
+        max(textWidth, textPaints[colorID].measureText(label.text))
+      textWidth = max(
+        textWidth,
+        textPaints[colorID].measureText(
+          String.format(
+            Locale.US,
+            LABEL_FORMAT,
+            label.confidence * 100,
+            label.index
+          )
+        )
+      )
+      yLabelOffset -= 2 * lineHeight
+    }
 
     // Draws the bounding box.
-    val rect = RectF(detectedObject.location)
-    val x0 = translateX(rect.left) - 200
-    val x1 = translateX(rect.right) - 200
-//    val x0 = rect.left
-//    val x1 = rect.right
+    val rect = RectF(detectedObject.boundingBox)
+    val x0 = translateX(rect.left)
+    val x1 = translateX(rect.right)
     rect.left = min(x0, x1)
     rect.right = max(x0, x1)
-    rect.top = translateY(rect.top) + 200
-    rect.bottom = translateY(rect.bottom) + 200
-//    rect.top = rect.top
-//    rect.bottom = rect.bottom
+    rect.top = translateY(rect.top)
+    rect.bottom = translateY(rect.bottom)
     canvas.drawRect(rect, boxPaints[colorID])
 
     // Draws other object info.
@@ -91,11 +87,33 @@ class ObjectGraphic constructor(
     )
     yLabelOffset += TEXT_SIZE
     canvas.drawText(
-      detectedObject.label + " " + detectedObject.score.toString(),
+      "Tracking ID: " + detectedObject.trackingId,
       rect.left,
       rect.top + yLabelOffset,
       textPaints[colorID]
     )
+    yLabelOffset += lineHeight
+    for (label in detectedObject.labels) {
+      canvas.drawText(
+        label.text + " (index: " + label.index + ")",
+        rect.left,
+        rect.top + yLabelOffset,
+        textPaints[colorID]
+      )
+      yLabelOffset += lineHeight
+      canvas.drawText(
+        String.format(
+          Locale.US,
+          LABEL_FORMAT,
+          label.confidence * 100,
+          label.index
+        ),
+        rect.left,
+        rect.top + yLabelOffset,
+        textPaints[colorID]
+      )
+      yLabelOffset += lineHeight
+    }
   }
 
   companion object {
@@ -115,7 +133,6 @@ class ObjectGraphic constructor(
         intArrayOf(Color.WHITE, Color.BLACK),
         intArrayOf(Color.BLACK, Color.GREEN)
       )
-//    private const val LABEL_FORMAT = "%.2f%% confidence (index: %d)"
-    private const val LABEL_FORMAT = "%.2f%%"
+    private const val LABEL_FORMAT = "%.2f%% confidence (index: %d)"
   }
 }
