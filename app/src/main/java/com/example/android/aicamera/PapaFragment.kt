@@ -72,4 +72,9 @@ class PapaFragment : Fragment() {
 
         return binding.root
     }
+
+    override fun onDetach() {
+        super.onDetach()
+        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
+    }
 }

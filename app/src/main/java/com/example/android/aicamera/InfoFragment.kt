@@ -1,10 +1,13 @@
 package com.example.android.aicamera
 
+import android.content.Context
+import android.content.pm.ActivityInfo
 import android.os.Build
 import android.os.Bundle
 import android.text.Html
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.OrientationEventListener
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.NestedScrollView
@@ -24,6 +27,8 @@ class InfoFragment : Fragment() {
     private lateinit var title: String
     private lateinit var direction: NavDirections
 
+    private lateinit var safeContext: Context
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -31,10 +36,37 @@ class InfoFragment : Fragment() {
         }
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        safeContext = context
+    }
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
+//        val mOrientationListener: OrientationEventListener = object : OrientationEventListener(
+//            safeContext
+//        ) {
+//            override fun onOrientationChanged(orientation: Int) {
+//                if (orientation == 0) {
+//                    activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+//                }
+//                else if(orientation == 180) {
+//                    activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_REVERSE_PORTRAIT
+//                }
+//                else if (orientation == 90) {
+//                    activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE
+//                }
+//                else if (orientation == 270) {
+//                    activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+//                }
+//            }
+//        }
+
         binding = FragmentInfoBinding.inflate(layoutInflater, container, false).apply {
             lifecycleOwner = viewLifecycleOwner
 
@@ -102,6 +134,11 @@ class InfoFragment : Fragment() {
 
         }
         return binding.root
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
     }
 
 }

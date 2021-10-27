@@ -218,7 +218,7 @@ class PoseEstimation : Fragment() {
 
     override fun onDetach() {
         super.onDetach()
-        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
     }
 
 }
