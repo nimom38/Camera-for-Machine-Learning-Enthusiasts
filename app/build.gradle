@@ -25,6 +25,13 @@ android {
             }
         }
     }
+
+    aaptOptions {
+        noCompress "tflite"
+        // or noCompress "lite"
+    }
+
+
     buildTypes {
         release {
             minifyEnabled false
@@ -124,4 +131,26 @@ dependencies {
     //
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.google.guava:guava:27.1-android'
+
+
+
+    // Face features
+    implementation 'com.google.mlkit:face-detection:16.1.2'
+
+    // Image labeling
+    implementation 'com.google.mlkit:image-labeling:17.0.5'
+
+    // Pose detection with default models
+    implementation 'com.google.mlkit:pose-detection:17.0.1-beta6'
+    // Pose detection with accurate models
+    implementation 'com.google.mlkit:pose-detection-accurate:17.0.1-beta6'
+
+    // Selfie segmentation
+    implementation 'com.google.mlkit:segmentation-selfie:16.0.0-beta2'
+    implementation 'com.google.mlkit:camera:16.0.0-beta1'
+
+    // Tensorflow lite dependencies
+    implementation 'org.tensorflow:tensorflow-lite:0.0.0-nightly-SNAPSHOT'
+    implementation 'org.tensorflow:tensorflow-lite-gpu:0.0.0-nightly-SNAPSHOT'
+    implementation 'org.tensorflow:tensorflow-lite-support:0.0.0-nightly-SNAPSHOT'
 }

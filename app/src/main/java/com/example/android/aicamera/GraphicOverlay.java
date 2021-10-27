@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 import com.google.common.base.Preconditions;
@@ -161,6 +162,7 @@ public class GraphicOverlay extends View {
    *     front camera.
    */
   public void setImageSourceInfo(int imageWidth, int imageHeight, boolean isFlipped) {
+    Log.d("GraphicOverlay", "huhuhu");
     Preconditions.checkState(imageWidth > 0, "image width must be positive");
     Preconditions.checkState(imageHeight > 0, "image height must be positive");
     synchronized (lock) {
