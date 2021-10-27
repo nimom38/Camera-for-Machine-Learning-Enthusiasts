@@ -12,8 +12,10 @@ import android.widget.Toast
 import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.android.aicamera.databinding.FragmentFaceDetectionBinding
+import com.google.android.gms.tasks.TaskExecutors
 import com.google.mlkit.common.MlKitException
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.face.FaceDetection
@@ -24,15 +26,19 @@ import java.util.concurrent.Executors
 
 class FaceDetection : Fragment() {
     private lateinit var binding: FragmentFaceDetectionBinding
-    private var needUpdateGraphicOverlayImageSourceInfo: Boolean = true
-    private lateinit var cameraExecutor: ExecutorService
     private var graphicOverlay: GraphicOverlay? = null
 
+    private val executor = ScopedExecutor(TaskExecutors.MAIN_THREAD)
 
     private var preview: Preview? = null
     private var imageAnalyzer: ImageAnalysis? = null
 
     private lateinit var safeContext: Context
+
+    private val viewModel: FaceDetectionViewModel by lazy {
+        ViewModelProvider(this, FaceDetectionViewModel.Factory(activity!!.application))
+            .get(FaceDetectionViewModel::class.java)
+    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -49,22 +55,65 @@ class FaceDetection : Fragment() {
         binding.objToolbar.setNavigationOnClickListener { view ->
             view.findNavController().navigateUp()
         }
+        binding.objToolbar.setOnMenuItemClickListener { item ->
+            when (item.itemId) {
+                R.id.action_camera_flip -> {
+                    Log.d("Baby", "item")
+                    viewModel.which_camera = 1 - viewModel.which_camera
+                    if(viewModel.which_camera == 0) {
+                        binding.objToolbar.menu.findItem(R.id.action_flash).setVisible(false)
+                        viewModel.isFlash = false
+                    }
+                    else {
+                        binding.objToolbar.menu.findItem(R.id.action_flash).setVisible(true);
+                        binding.objToolbar.menu.findItem(R.id.action_flash).setIcon(R.drawable.flash_off)
+                    }
+                    bindUseCases(viewModel.which_camera, viewModel.isFlash)
+                    true
+                }
+                R.id.action_flash -> {
+                    Log.d("Baby", "item")
+                    if (viewModel.isFlash) {
+                        item.setIcon(R.drawable.flash_off)
+                        viewModel.isFlash = false
+                    } else {
+                        item.setIcon(R.drawable.flash_on)
+                        viewModel.isFlash = true
+                    }
+                    bindUseCases(viewModel.which_camera, viewModel.isFlash)
+                    true
+                }
+                else -> false
+            }
+        }
         return binding.root
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        bindUseCases(0, false)
+        if(viewModel.prothom) {
+            viewModel.isFlash = false
+            viewModel.which_camera = 0
+            binding.objToolbar.menu.findItem(R.id.action_flash).setVisible(false)
+            viewModel.prothom = false
+        }
+        if(viewModel.which_camera == 0) {
+            binding.objToolbar.menu.findItem(R.id.action_flash).setVisible(false)
+            viewModel.isFlash = false
+        }
+        if(viewModel.isFlash == true) {
+            binding.objToolbar.menu.findItem(R.id.action_flash).setIcon(R.drawable.flash_on)
+        }
+        if((viewModel.isFlash == false) && (viewModel.which_camera == 1)) {
+            binding.objToolbar.menu.findItem(R.id.action_flash).setIcon(R.drawable.flash_off)
+        }
+        bindUseCases(viewModel.which_camera, viewModel.isFlash)
 
-        cameraExecutor = Executors.newSingleThreadExecutor()
     }
     private fun bindUseCases(which_camera: Int, isFlashOn: Boolean) {
-        val cameraProviderFuture = ProcessCameraProvider.getInstance(safeContext)
+        var needUpdateGraphicOverlayImageSourceInfo: Boolean = true
 
-        cameraProviderFuture.addListener(Runnable {
-            // Used to bind the lifecycle of cameras to the lifecycle owner
-            val cameraProvider: ProcessCameraProvider = cameraProviderFuture.get()
-
+        viewModel.cameraProviderFuture.addListener(Runnable {
             // Preview
             preview = Preview.Builder()
                 .build()
@@ -114,10 +163,10 @@ class FaceDetection : Fragment() {
 
             try {
                 // Unbind use cases before rebinding
-                cameraProvider.unbindAll()
+                viewModel.cameraProvider.unbindAll()
 
                 // Bind use cases to camera
-                cameraProvider.bindToLifecycle(this, cameraSelector, preview, imageAnalyzer).cameraControl.enableTorch(isFlashOn)
+                viewModel.cameraProvider.bindToLifecycle(this, cameraSelector, preview, imageAnalyzer).cameraControl.enableTorch(isFlashOn)
 
             } catch(exc: Exception) {
                 Log.e("FaceDetection", "Use case binding failed", exc)
@@ -129,29 +178,22 @@ class FaceDetection : Fragment() {
 
     @SuppressLint("UnsafeOptInUsageError")
     private fun processImageProxy(imageProxy: ImageProxy, graphicOverlay: GraphicOverlay?) {
-        val highAccuracyOpts = FaceDetectorOptions.Builder()
-            .setPerformanceMode(FaceDetectorOptions.PERFORMANCE_MODE_ACCURATE)
-            .setLandmarkMode(FaceDetectorOptions.LANDMARK_MODE_ALL)
-            .setClassificationMode(FaceDetectorOptions.CLASSIFICATION_MODE_ALL)
-            .setContourMode(FaceDetectorOptions.CONTOUR_MODE_ALL)
-            .build()
 
-        val detector = FaceDetection.getClient(highAccuracyOpts)
 
         val mediaImage = imageProxy.image
         if (mediaImage != null) {
             val image = InputImage.fromMediaImage(mediaImage, imageProxy.imageInfo.rotationDegrees)
-            val result = detector.process(image)
-                .addOnSuccessListener { faces ->
+            val result = viewModel.detector.process(image)
+                .addOnSuccessListener(executor, { faces ->
                     graphicOverlay!!.clear()
                     for (face in faces) {
                         graphicOverlay.add(FaceGraphic(graphicOverlay, face))
                     }
                     graphicOverlay.postInvalidate()
-                }
-                .addOnFailureListener { e ->
+                })
+                .addOnFailureListener(executor, { e ->
                     Log.e("FaceDetection", "Face detection failed $e")
-                }
+                })
                 .addOnCompleteListener {
                     imageProxy.close()
                 }
@@ -163,7 +205,6 @@ class FaceDetection : Fragment() {
         super.onDestroyView()
 
         Log.d("FaceDetection", "executor shutdown")
-        cameraExecutor.shutdown()
 
         Log.d("FaceDetection", "FragmentA destroyed")
     }

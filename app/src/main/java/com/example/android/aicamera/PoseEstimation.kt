@@ -15,8 +15,10 @@ import androidx.camera.core.ImageProxy
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.android.aicamera.databinding.FragmentPoseEstimationBinding
+import com.google.android.gms.tasks.TaskExecutors
 import com.google.mlkit.common.MlKitException
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.pose.PoseDetection
@@ -26,15 +28,19 @@ import java.util.concurrent.Executors
 
 class PoseEstimation : Fragment() {
     private lateinit var binding: FragmentPoseEstimationBinding
-    private var needUpdateGraphicOverlayImageSourceInfo: Boolean = true
-    private lateinit var cameraExecutor: ExecutorService
     private var graphicOverlay: GraphicOverlay? = null
 
+    private val executor = ScopedExecutor(TaskExecutors.MAIN_THREAD)
 
     private var preview: Preview? = null
     private var imageAnalyzer: ImageAnalysis? = null
 
     private lateinit var safeContext: Context
+
+    private val viewModel: PoseEstimationViewModel by lazy {
+        ViewModelProvider(this, PoseEstimationViewModel.Factory(activity!!.application))
+            .get(PoseEstimationViewModel::class.java)
+    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -50,22 +56,41 @@ class PoseEstimation : Fragment() {
         binding.objToolbar.setNavigationOnClickListener { view ->
             view.findNavController().navigateUp()
         }
+        binding.objToolbar.setOnMenuItemClickListener { item ->
+            when (item.itemId) {
+                R.id.action_flash -> {
+                    Log.d("Baby", "item")
+                    if (viewModel.isFlash) {
+                        item.setIcon(R.drawable.flash_off)
+                        viewModel.isFlash = false
+                    } else {
+                        item.setIcon(R.drawable.flash_on)
+                        viewModel.isFlash = true
+                    }
+                    bindUseCases(1, viewModel.isFlash)
+                    true
+                }
+                else -> false
+            }
+        }
         return binding.root
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        bindUseCases(0, false)
+        if(viewModel.prothom) {
+            viewModel.isFlash = false
+            viewModel.prothom = false
+        }
+        if(viewModel.isFlash == true) {
+            binding.objToolbar.menu.findItem(R.id.action_flash).setIcon(R.drawable.flash_on)
+        }
+        bindUseCases(1, viewModel.isFlash)
 
-        cameraExecutor = Executors.newSingleThreadExecutor()
     }
     private fun bindUseCases(which_camera: Int, isFlashOn: Boolean) {
-        val cameraProviderFuture = ProcessCameraProvider.getInstance(safeContext)
-
-        cameraProviderFuture.addListener(Runnable {
-            // Used to bind the lifecycle of cameras to the lifecycle owner
-            val cameraProvider: ProcessCameraProvider = cameraProviderFuture.get()
-
+        var needUpdateGraphicOverlayImageSourceInfo: Boolean = true
+        viewModel.cameraProviderFuture.addListener(Runnable {
             // Preview
             preview = Preview.Builder()
                 .build()
@@ -110,10 +135,10 @@ class PoseEstimation : Fragment() {
 
             try {
                 // Unbind use cases before rebinding
-                cameraProvider.unbindAll()
+                viewModel.cameraProvider.unbindAll()
 
                 // Bind use cases to camera
-                cameraProvider.bindToLifecycle(this, cameraSelector, preview, imageAnalyzer).cameraControl.enableTorch(isFlashOn)
+                viewModel.cameraProvider.bindToLifecycle(this, cameraSelector, preview, imageAnalyzer).cameraControl.enableTorch(isFlashOn)
 
             } catch(exc: Exception) {
                 Log.e("FaceDetection", "Use case binding failed", exc)
@@ -137,7 +162,7 @@ class PoseEstimation : Fragment() {
         if (mediaImage != null) {
             val image = InputImage.fromMediaImage(mediaImage, imageProxy.imageInfo.rotationDegrees)
             val result = poseDetector.process(image)
-                .addOnSuccessListener { results ->
+                .addOnSuccessListener(executor, { results ->
                     graphicOverlay!!.clear()
                     graphicOverlay.add(
                         PoseGraphic(
@@ -150,10 +175,10 @@ class PoseEstimation : Fragment() {
                         )
                     )
                     graphicOverlay.postInvalidate()
-                }
-                .addOnFailureListener { e ->
+                })
+                .addOnFailureListener(executor, { e ->
                     Log.e("PoseEstimation", "Face detection failed $e")
-                }
+                })
                 .addOnCompleteListener {
                     imageProxy.close()
                 }
@@ -165,7 +190,6 @@ class PoseEstimation : Fragment() {
         super.onDestroyView()
 
         Log.d("PoseEstimation", "executor shutdown")
-        cameraExecutor.shutdown()
 
         Log.d("PoseEstimation", "FragmentA destroyed")
     }

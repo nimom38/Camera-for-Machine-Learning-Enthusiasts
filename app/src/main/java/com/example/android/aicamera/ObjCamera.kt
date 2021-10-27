@@ -53,11 +53,9 @@ class ObjCamera : Fragment() {
 
     private lateinit var binding: FragmentObjCameraBinding
 
-    private lateinit var menu: Menu
-
     private val executor = ScopedExecutor(TaskExecutors.MAIN_THREAD)
 
-    private var needUpdateGraphicOverlayImageSourceInfo: Boolean = true
+
 //    private lateinit var cameraExecutor: ExecutorService
     private var graphicOverlay: GraphicOverlay? = null
 
@@ -98,6 +96,7 @@ class ObjCamera : Fragment() {
                     }
                     else {
                         binding.objToolbar.menu.findItem(R.id.action_flash).setVisible(true);
+                        binding.objToolbar.menu.findItem(R.id.action_flash).setIcon(R.drawable.flash_off)
                     }
                     bindUseCases(viewModel.which_camera, viewModel.isFlash)
                     true
@@ -135,11 +134,15 @@ class ObjCamera : Fragment() {
         if(viewModel.isFlash == true) {
             binding.objToolbar.menu.findItem(R.id.action_flash).setIcon(R.drawable.flash_on)
         }
+        if((viewModel.isFlash == false) && (viewModel.which_camera == 1)) {
+            binding.objToolbar.menu.findItem(R.id.action_flash).setIcon(R.drawable.flash_off)
+        }
         bindUseCases(viewModel.which_camera, viewModel.isFlash)
 
 //        cameraExecutor = Executors.newSingleThreadExecutor()
     }
     private fun bindUseCases(which_camera: Int, isFlashOn: Boolean) {
+        var needUpdateGraphicOverlayImageSourceInfo: Boolean = true
         viewModel.cameraProviderFuture.addListener(Runnable {
             // Used to bind the lifecycle of cameras to the lifecycle owner
 

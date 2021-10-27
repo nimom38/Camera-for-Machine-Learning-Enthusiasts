@@ -9,8 +9,6 @@ import com.google.mlkit.vision.objects.ObjectDetection
 import com.google.mlkit.vision.objects.custom.CustomObjectDetectorOptions
 
 class ObjCameraViewModel(safeContext: Application) : AndroidViewModel(safeContext) {
-//    var isFlash = MutableLiveData<Boolean>(false)
-//    var which_camera = MutableLiveData<Int>(0)
     var prothom: Boolean = true
     var isFlash: Boolean = false
     var which_camera: Int = 0

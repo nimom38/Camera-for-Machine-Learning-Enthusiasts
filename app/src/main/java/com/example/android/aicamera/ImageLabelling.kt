@@ -16,8 +16,10 @@ import androidx.camera.core.ImageProxy
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.android.aicamera.databinding.FragmentImageLabellingBinding
+import com.google.android.gms.tasks.TaskExecutors
 import com.google.mlkit.common.MlKitException
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.label.ImageLabeling
@@ -28,8 +30,8 @@ import java.util.concurrent.Executors
 
 class ImageLabelling : Fragment() {
     private lateinit var binding: FragmentImageLabellingBinding
-    private var needUpdateGraphicOverlayImageSourceInfo: Boolean = true
-    private lateinit var cameraExecutor: ExecutorService
+
+    private val executor = ScopedExecutor(TaskExecutors.MAIN_THREAD)
 
     private var preview: Preview? = null
     private var imageAnalyzer: ImageAnalysis? = null
@@ -37,6 +39,11 @@ class ImageLabelling : Fragment() {
     private lateinit var safeContext: Context
 
     private lateinit var arr: ArrayList<TextView>
+
+    private val viewModel: ImageLabellingViewModel by lazy {
+        ViewModelProvider(this, ImageLabellingViewModel.Factory(activity!!.application))
+            .get(ImageLabellingViewModel::class.java)
+    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -63,22 +70,65 @@ class ImageLabelling : Fragment() {
         binding.objToolbar.setNavigationOnClickListener { view ->
             view.findNavController().navigateUp()
         }
+        binding.objToolbar.setOnMenuItemClickListener { item ->
+            when (item.itemId) {
+                R.id.action_camera_flip -> {
+                    Log.d("Baby", "item")
+                    viewModel.which_camera = 1 - viewModel.which_camera
+                    if(viewModel.which_camera == 0) {
+                        binding.objToolbar.menu.findItem(R.id.action_flash).setVisible(false)
+                        viewModel.isFlash = false
+                    }
+                    else {
+                        binding.objToolbar.menu.findItem(R.id.action_flash).setVisible(true)
+                        binding.objToolbar.menu.findItem(R.id.action_flash).setIcon(R.drawable.flash_off)
+                    }
+                    bindUseCases(viewModel.which_camera, viewModel.isFlash)
+                    true
+                }
+                R.id.action_flash -> {
+                    Log.d("Baby", "item")
+                    if (viewModel.isFlash) {
+                        item.setIcon(R.drawable.flash_off)
+                        viewModel.isFlash = false
+                    } else {
+                        item.setIcon(R.drawable.flash_on)
+                        viewModel.isFlash = true
+                    }
+                    bindUseCases(viewModel.which_camera, viewModel.isFlash)
+                    true
+                }
+                else -> false
+            }
+        }
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        if(viewModel.prothom) {
+            viewModel.isFlash = false
+            viewModel.which_camera = 1
+            viewModel.prothom = false
+        }
+        if(viewModel.which_camera == 0) {
+            binding.objToolbar.menu.findItem(R.id.action_flash).setVisible(false)
+            viewModel.isFlash = false
+        }
+        if(viewModel.isFlash == true) {
+            binding.objToolbar.menu.findItem(R.id.action_flash).setIcon(R.drawable.flash_on)
+        }
+        if((viewModel.isFlash == false) && (viewModel.which_camera == 1)) {
+            binding.objToolbar.menu.findItem(R.id.action_flash).setIcon(R.drawable.flash_off)
+        }
+        bindUseCases(viewModel.which_camera, viewModel.isFlash)
 
-        bindUseCases(0, false)
-
-        cameraExecutor = Executors.newSingleThreadExecutor()
     }
     private fun bindUseCases(which_camera: Int, isFlashOn: Boolean) {
-        val cameraProviderFuture = ProcessCameraProvider.getInstance(safeContext)
+        var needUpdateGraphicOverlayImageSourceInfo: Boolean = true
 
-        cameraProviderFuture.addListener(Runnable {
+        viewModel.cameraProviderFuture.addListener(Runnable {
             // Used to bind the lifecycle of cameras to the lifecycle owner
-            val cameraProvider: ProcessCameraProvider = cameraProviderFuture.get()
 
             // Preview
             preview = Preview.Builder()
@@ -113,10 +163,10 @@ class ImageLabelling : Fragment() {
 
             try {
                 // Unbind use cases before rebinding
-                cameraProvider.unbindAll()
+                viewModel.cameraProvider.unbindAll()
 
                 // Bind use cases to camera
-                cameraProvider.bindToLifecycle(this, cameraSelector, preview, imageAnalyzer).cameraControl.enableTorch(isFlashOn)
+                viewModel.cameraProvider.bindToLifecycle(this, cameraSelector, preview, imageAnalyzer).cameraControl.enableTorch(isFlashOn)
 
             } catch(exc: Exception) {
                 Log.e("FaceDetection", "Use case binding failed", exc)
@@ -128,18 +178,16 @@ class ImageLabelling : Fragment() {
 
     @SuppressLint("UnsafeOptInUsageError")
     private fun processImageProxy(imageProxy: ImageProxy) {
-         val options = ImageLabelerOptions.Builder()
-         .setConfidenceThreshold(0.7f)
-         .build()
-         val labeler = ImageLabeling.getClient(options)
-
-
         val mediaImage = imageProxy.image
         if (mediaImage != null) {
             val image = InputImage.fromMediaImage(mediaImage, imageProxy.imageInfo.rotationDegrees)
-            val result = labeler.process(image)
-                .addOnSuccessListener { labels ->
+            val result = viewModel.labeler.process(image)
+                .addOnSuccessListener(executor, { labels ->
                     var idx = 0
+                    while(idx < 10) {
+                        arr[idx++].text = ""
+                    }
+                    idx = 0
                     for (label in labels) {
                         if(idx == 10) break
                         val text = label.text
@@ -147,10 +195,10 @@ class ImageLabelling : Fragment() {
                         val index = label.index
                         arr[idx++].text = text + ": " + confidence
                     }
-                }
-                .addOnFailureListener { e ->
+                })
+                .addOnFailureListener(executor, { e ->
                     Log.e("ImageLabelling", "Face detection failed $e")
-                }
+                })
                 .addOnCompleteListener {
                     imageProxy.close()
                 }
@@ -162,7 +210,6 @@ class ImageLabelling : Fragment() {
         super.onDestroyView()
 
         Log.d("ImageLabelling", "executor shutdown")
-        cameraExecutor.shutdown()
 
         Log.d("ImageLabelling", "FragmentA destroyed")
     }
