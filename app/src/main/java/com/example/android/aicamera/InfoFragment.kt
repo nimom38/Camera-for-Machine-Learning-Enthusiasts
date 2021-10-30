@@ -48,24 +48,6 @@ class InfoFragment : Fragment() {
     ): View? {
 
         activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
-//        val mOrientationListener: OrientationEventListener = object : OrientationEventListener(
-//            safeContext
-//        ) {
-//            override fun onOrientationChanged(orientation: Int) {
-//                if (orientation == 0) {
-//                    activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-//                }
-//                else if(orientation == 180) {
-//                    activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_REVERSE_PORTRAIT
-//                }
-//                else if (orientation == 90) {
-//                    activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE
-//                }
-//                else if (orientation == 270) {
-//                    activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
-//                }
-//            }
-//        }
 
         binding = FragmentInfoBinding.inflate(layoutInflater, container, false).apply {
             lifecycleOwner = viewLifecycleOwner

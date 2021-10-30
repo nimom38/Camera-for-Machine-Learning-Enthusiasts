@@ -4,16 +4,21 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../../layout/custom_preview.xml" value="0.22135416666666666" />
+        <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.11574074074074074" />
         <entry key="app/src/main/res/drawable/camera_flip.xml" value="0.12129629629629629" />
+        <entry key="app/src/main/res/drawable/car.xml" value="0.11574074074074074" />
         <entry key="app/src/main/res/drawable/flash_off.xml" value="0.12129629629629629" />
+        <entry key="app/src/main/res/drawable/flash_on.xml" value="0.11574074074074074" />
         <entry key="app/src/main/res/drawable/ic_detail_back.xml" value="0.12685185185185185" />
         <entry key="app/src/main/res/drawable/ic_detail_share.xml" value="0.12685185185185185" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.11574074074074074" />
         <entry key="app/src/main/res/drawable/ic_plus.xml" value="0.12685185185185185" />
+        <entry key="app/src/main/res/drawable/info.xml" value="0.11574074074074074" />
         <entry key="app/src/main/res/layout-land/fragment_image_labelling.xml" value="0.21041666666666667" />
         <entry key="app/src/main/res/layout-land/fragment_obj_camera.xml" value="0.21041666666666667" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.178125" />
         <entry key="app/src/main/res/layout/fragment_face_detection.xml" value="0.19322916666666667" />
-        <entry key="app/src/main/res/layout/fragment_image_labelling.xml" value="0.18" />
+        <entry key="app/src/main/res/layout/fragment_image_labelling.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_info.xml" value="0.18" />
         <entry key="app/src/main/res/layout/fragment_obj_camera.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_papa.xml" value="0.25" />

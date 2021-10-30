@@ -173,17 +173,10 @@ class PoseEstimation : Fragment() {
     @SuppressLint("UnsafeOptInUsageError")
     private fun processImageProxy(imageProxy: ImageProxy, graphicOverlay: GraphicOverlay?) {
         // Base pose detector with streaming frames, when depending on the pose-detection sdk
-        val options = PoseDetectorOptions.Builder()
-            .setDetectorMode(PoseDetectorOptions.STREAM_MODE)
-            .build()
-
-
-        val poseDetector = PoseDetection.getClient(options)
-
         val mediaImage = imageProxy.image
         if (mediaImage != null) {
             val image = InputImage.fromMediaImage(mediaImage, imageProxy.imageInfo.rotationDegrees)
-            val result = poseDetector.process(image)
+            val result = viewModel.poseDetector.process(image)
                 .addOnSuccessListener(executor, { results ->
                     graphicOverlay!!.clear()
                     graphicOverlay.add(
