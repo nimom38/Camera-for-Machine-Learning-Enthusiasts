@@ -5,17 +5,17 @@
 
     <item
         android:id="@+id/action_camera_flip"
-        android:icon="@drawable/camera_flip"
+        android:icon="@drawable/camera_flip_white"
         android:title="Flip"
         app:showAsAction="always" />
     <item
         android:id="@+id/action_flash"
-        android:icon="@drawable/flash_off"
+        android:icon="@drawable/flash_off_white"
         android:title="Flash"
         app:showAsAction="always" />
     <item
         android:id="@+id/action_info"
-        android:icon="@drawable/info"
+        android:icon="@drawable/info_white"
         android:title="Info"
         app:showAsAction="always" />
 

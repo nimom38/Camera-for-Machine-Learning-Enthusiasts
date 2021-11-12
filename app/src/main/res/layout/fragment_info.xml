@@ -39,9 +39,8 @@
                     android:layout_height="wrap_content"
                     android:fitsSystemWindows="true"
                     android:scaleType="centerCrop"
-
-                    app:layout_collapseMode="parallax"
-                    app:srcCompat="@drawable/object_detection" />
+                    tools:src="@drawable/object_detection"
+                    app:layout_collapseMode="parallax" />
 
                 <com.google.android.material.appbar.MaterialToolbar
                     android:id="@+id/toolbar"
@@ -111,10 +110,11 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/fab_margin"
             android:tint="@android:color/white"
+            app:backgroundTint="#484848"
             app:layout_anchor="@id/appbar"
             app:layout_anchorGravity="bottom|end"
             app:shapeAppearance="@style/ShapeAppearance.Sunflower.FAB"
-            app:srcCompat="@drawable/ic_plus"
+            app:srcCompat="@drawable/play_white"
             tools:ignore="SpeakableTextPresentCheck" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

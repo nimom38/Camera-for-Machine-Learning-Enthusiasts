@@ -50,11 +50,6 @@ class ImageLabelling : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         safeContext = context
-    }
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
 
         val mOrientationListener: OrientationEventListener = object : OrientationEventListener(
             safeContext
@@ -74,6 +69,18 @@ class ImageLabelling : Fragment() {
                 }
             }
         }
+
+        if (mOrientationListener.canDetectOrientation()) {
+            mOrientationListener.enable()
+        }
+
+    }
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+
+
 
         binding = FragmentImageLabellingBinding.inflate(layoutInflater, container, false)
         arr = arrayListOf(
@@ -103,7 +110,7 @@ class ImageLabelling : Fragment() {
                     }
                     else {
                         binding.objToolbar.menu.findItem(R.id.action_flash).setVisible(true)
-                        binding.objToolbar.menu.findItem(R.id.action_flash).setIcon(R.drawable.flash_off)
+                        binding.objToolbar.menu.findItem(R.id.action_flash).setIcon(R.drawable.flash_off_white)
                     }
                     bindUseCases(viewModel.which_camera, viewModel.isFlash)
                     true
@@ -111,13 +118,17 @@ class ImageLabelling : Fragment() {
                 R.id.action_flash -> {
                     Log.d("Baby", "item")
                     if (viewModel.isFlash) {
-                        item.setIcon(R.drawable.flash_off)
+                        item.setIcon(R.drawable.flash_off_white)
                         viewModel.isFlash = false
                     } else {
-                        item.setIcon(R.drawable.flash_on)
+                        item.setIcon(R.drawable.flash_on_white)
                         viewModel.isFlash = true
                     }
                     bindUseCases(viewModel.which_camera, viewModel.isFlash)
+                    true
+                }
+                R.id.action_info -> {
+                    Toast.makeText( safeContext, "Point your camera forward infront of the objects.", Toast.LENGTH_SHORT ).show()
                     true
                 }
                 else -> false
@@ -138,10 +149,10 @@ class ImageLabelling : Fragment() {
             viewModel.isFlash = false
         }
         if(viewModel.isFlash == true) {
-            binding.objToolbar.menu.findItem(R.id.action_flash).setIcon(R.drawable.flash_on)
+            binding.objToolbar.menu.findItem(R.id.action_flash).setIcon(R.drawable.flash_on_white)
         }
         if((viewModel.isFlash == false) && (viewModel.which_camera == 1)) {
-            binding.objToolbar.menu.findItem(R.id.action_flash).setIcon(R.drawable.flash_off)
+            binding.objToolbar.menu.findItem(R.id.action_flash).setIcon(R.drawable.flash_off_white)
         }
         bindUseCases(viewModel.which_camera, viewModel.isFlash)
 
