@@ -1,5 +1,5 @@
 # CAMERA-FOR-MACHINE-LEARNING-ENTHUSIASTS
-The purpose of this project is to demonstrate the power of machine learning and how amazing it can be to the general people. This android camera app can detect objects, label them, estimate poses of human beings, detect and label facial features and expressions.
+The purpose of this project is to demonstrate the power of machine learning and how amazing it can be to the general people. This android camera app can detect objects, label them, estimate poses of human beings, detect and label facial features and expressions. You can install my android app by downloading the apk file from [here](https://drive.google.com/file/d/1gUoWsoXhz2zZZLVYF4hC1DkTFAwwVgEb/view).
 
 # Here are some screenshots of the app.
 
