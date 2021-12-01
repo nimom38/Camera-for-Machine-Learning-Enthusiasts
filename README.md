@@ -3,11 +3,12 @@ The purpose of this project is to demonstrate the power of machine learning and 
 
 ## Screenshots of the app.
 
-<img src="https://drive.google.com/uc?export=view&id=1Ecsu17zJTWbWAVLdq9EiZqfZVzC5sQOJ" alt="Home Page" width="240"/> <img src="https://drive.google.com/uc?export=view&id=1Eiy_nTvrOqpVwvHxKzpekwQWbCkVmDqK" alt="Home Page" width="240"/>
-<img src="https://drive.google.com/uc?export=view&id=1Ejxo4n3P9s-UpM7MWSankWkxUOFh-Epe" alt="Info Page" width="240"/> <img src="https://drive.google.com/uc?export=view&id=1F8oYbl5UPBHsiBa_wHopvb0Zob3K-UnA" alt="Object Detection" height="340"/>
-<img src="https://drive.google.com/uc?export=view&id=1FQZowvWN3jXC8JYALsagEMjBnEktFhpC" alt="Object Detection" width="240"/> <img src="https://drive.google.com/uc?export=view&id=1FyGD6wR9-n9gO_hln94ppZreKlGK9Z0A" alt="Facial Expression Detection" width="240"/>
-<img src="https://drive.google.com/uc?export=view&id=1FznLd92fVN8VUgn9K3yNcLufzJqhGJ-b" alt="Facial Expression Detection" width="240"/> <img src="https://drive.google.com/uc?export=view&id=1GEFu8iCyxgksnGZPkgSH7aDn_t7NiDNE" alt="Pose Estimation" width="240"/>
-<img src="https://drive.google.com/uc?export=view&id=1FXLMaJATp3q7TrUboC2IfzROKKFV2vg-" alt="Image Labelling" width="240"/> <img src="https://drive.google.com/uc?export=view&id=1Fl93SRalM3RmHD7oZsHZUmIk7ynF4Fol" alt="Image Labelling" width="240"/>
+<img src="https://github.com/nimom38/Camera-for-Machine-Learning-Enthusiasts/blob/main/app/src/main/res/drawable/Screenshot_2021-12-02-00-13-07-176_com.example.android.aicamera.jpg" alt="Home Page" width="240"/> <img src="https://github.com/nimom38/Camera-for-Machine-Learning-Enthusiasts/blob/main/app/src/main/res/drawable/Screenshot_2021-12-02-00-13-13-025_com.example.android.aicamera.jpg" alt="Home Page" width="240"/>
+<img src="https://github.com/nimom38/Camera-for-Machine-Learning-Enthusiasts/blob/main/app/src/main/res/drawable/Screenshot_2021-12-02-00-13-18-116_com.example.android.aicamera.jpg" alt="Info Page" width="240"/> <img src="https://github.com/nimom38/Camera-for-Machine-Learning-Enthusiasts/blob/main/app/src/main/res/drawable/Screenshot_2021-12-02-00-16-52-311_com.example.android.aicamera.jpg" alt="Object Detection" height="340"/>
+<img src="https://github.com/nimom38/Camera-for-Machine-Learning-Enthusiasts/blob/main/app/src/main/res/drawable/Screenshot_2021-12-02-00-18-52-084_com.example.android.aicamera.jpg" alt="Object Detection" width="240"/> <img src="https://github.com/nimom38/Camera-for-Machine-Learning-Enthusiasts/blob/main/app/src/main/res/drawable/Screenshot_2021-12-02-00-24-19-675_com.example.android.aicamera.jpg" alt="Facial Expression Detection" width="240"/>
+<img src="https://github.com/nimom38/Camera-for-Machine-Learning-Enthusiasts/blob/main/app/src/main/res/drawable/Screenshot_2021-12-02-00-25-20-018_com.example.android.aicamera.jpg" alt="Facial Expression Detection" width="240"/> <img src="https://github.com/nimom38/Camera-for-Machine-Learning-Enthusiasts/blob/main/app/src/main/res/drawable/Screenshot_2021-12-02-00-28-29-550_com.example.android.aicamera.jpg" alt="Pose Estimation" width="240"/>
+<img src="https://github.com/nimom38/Camera-for-Machine-Learning-Enthusiasts/blob/main/app/src/main/res/drawable/Screenshot_2021-12-02-00-20-31-963_com.example.android.aicamera.jpg" alt="Image Labelling" width="240"/> <img src="https://github.com/nimom38/Camera-for-Machine-Learning-Enthusiasts/blob/main/app/src/main/res/drawable/Screenshot_2021-12-02-00-20-39-874_com.example.android.aicamera.jpg" alt="Image Labelling" width="240"/>
+
 
 ## How to use
 
