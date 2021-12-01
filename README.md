@@ -3,10 +3,11 @@ The purpose of this project is to demonstrate the power of machine learning and 
 
 ## Screenshots of the app.
 
-<img src="https://drive.google.com/uc?export=view&id=1CS7lK9g2s4gnY0t-7EVMeeBxovssj-dg" alt="Home Page" width="240"/> <img src="https://drive.google.com/uc?export=view&id=1CS7lK9g2s4gnY0t-7EVMeeBxovssj-dg" alt="Home Page" width="240"/>
-<img src="https://drive.google.com/uc?export=view&id=1CS7lK9g2s4gnY0t-7EVMeeBxovssj-dg" alt="Home Page" width="240"/> <img src="https://drive.google.com/uc?export=view&id=1CS7lK9g2s4gnY0t-7EVMeeBxovssj-dg" alt="Home Page" width="240"/>
-<img src="https://drive.google.com/uc?export=view&id=1CS7lK9g2s4gnY0t-7EVMeeBxovssj-dg" alt="Home Page" width="240"/> <img src="https://drive.google.com/uc?export=view&id=1CS7lK9g2s4gnY0t-7EVMeeBxovssj-dg" alt="Home Page" width="240"/>
-<img src="https://drive.google.com/uc?export=view&id=1CS7lK9g2s4gnY0t-7EVMeeBxovssj-dg" alt="Home Page" width="240"/> <img src="https://drive.google.com/uc?export=view&id=1CS7lK9g2s4gnY0t-7EVMeeBxovssj-dg" alt="Home Page" width="240"/>
+<img src="https://drive.google.com/uc?export=view&id=1Ecsu17zJTWbWAVLdq9EiZqfZVzC5sQOJ" alt="Home Page" width="240"/> <img src="https://drive.google.com/uc?export=view&id=1Eiy_nTvrOqpVwvHxKzpekwQWbCkVmDqK" alt="Home Page" width="240"/>
+<img src="https://drive.google.com/uc?export=view&id=1Ejxo4n3P9s-UpM7MWSankWkxUOFh-Epe" alt="Info Page" width="240"/> <img src="https://drive.google.com/uc?export=view&id=1F8oYbl5UPBHsiBa_wHopvb0Zob3K-UnA" alt="Object Detection" height="340"/>
+<img src="https://drive.google.com/uc?export=view&id=1FQZowvWN3jXC8JYALsagEMjBnEktFhpC" alt="Object Detection" width="240"/> <img src="https://drive.google.com/uc?export=view&id=1FyGD6wR9-n9gO_hln94ppZreKlGK9Z0A" alt="Facial Expression Detection" width="240"/>
+<img src="https://drive.google.com/uc?export=view&id=1FznLd92fVN8VUgn9K3yNcLufzJqhGJ-b" alt="Facial Expression Detection" width="240"/> <img src="https://drive.google.com/uc?export=view&id=1GEFu8iCyxgksnGZPkgSH7aDn_t7NiDNE" alt="Pose Estimation" width="240"/>
+<img src="https://drive.google.com/uc?export=view&id=1FXLMaJATp3q7TrUboC2IfzROKKFV2vg-" alt="Image Labelling" width="240"/> <img src="https://drive.google.com/uc?export=view&id=1Fl93SRalM3RmHD7oZsHZUmIk7ynF4Fol" alt="Image Labelling" width="240"/>
 
 ## How to use
 
@@ -15,7 +16,8 @@ The purpose of this project is to demonstrate the power of machine learning and 
 3. Connect your phone to the workstation through USB.<br/>
 4. Click run.
 
-## Credits
+## Credits![68747470733a2f2f64726976652e676f6f676c652e636f6d2f75633f6578706f72743d766965772669643d3146386f59626c3555504248736942615f77486f707662305a6f62334b2d556e41](https://user-images.githubusercontent.com/54052992/144294626-af44a43e-4634-42e2-b2e5-f5f8db835d41.jpg)
+
 
 The following repositories helped me to learn many things for implementing my project.
 1. [https://github.com/tensorflow/tensorflow/tree/master/tensorflow/lite](https://github.com/tensorflow/tensorflow/tree/master/tensorflow/lite)<br/>
