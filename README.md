@@ -16,7 +16,7 @@ The purpose of this project is to demonstrate the power of machine learning and 
 3. Connect your phone to the workstation through USB.<br/>
 4. Click run.
 
-## Credits![68747470733a2f2f64726976652e676f6f676c652e636f6d2f75633f6578706f72743d766965772669643d3146386f59626c3555504248736942615f77486f707662305a6f62334b2d556e41](https://user-images.githubusercontent.com/54052992/144294626-af44a43e-4634-42e2-b2e5-f5f8db835d41.jpg)
+## Credits
 
 
 The following repositories helped me to learn many things for implementing my project.
